@@ -59,8 +59,9 @@ export default function Header({
         <a
           href="/"
           className="text-2xl font-bold bg-gradient-to-r from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent"
+          title="CNFans Spreadsheet, Finds & Links Home"
         >
-          CNFans Finds
+          CNFans Spreadsheet & Finds
         </a>
         <nav>
           <ul className="flex gap-8 items-center">
@@ -68,6 +69,7 @@ export default function Header({
               <a
                 href="/"
                 className="text-[#cbd5e0] px-4 py-2 rounded-lg transition hover:text-[#ff2a68] hover:bg-[#ff2a68]/10"
+                title="CNFans Spreadsheet, Finds & Links Home"
               >
                 Home
               </a>

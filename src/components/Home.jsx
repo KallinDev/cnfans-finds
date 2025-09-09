@@ -61,25 +61,26 @@ const Home = () => {
       {/* Hero Section */}
       <section className="py-20 text-center max-w-6xl mx-auto">
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-5 bg-gradient-to-br from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent">
-          Find Trending Products & Deals
+          CNFans Spreadsheet, Finds & Links – Discover Trending CNFans Products
         </h1>
-        <p className="text-lg sm:text-xl mb-10 text-[#a0aec0] max-w-3xl mx-auto leading-relaxed">
-          CNFans is your gateway to discovering the hottest products, exclusive
-          deals, and must-have gadgets. All links are curated for you to shop
-          smarter and save more.
+        <p className="text-lg sm:text-s mb-10 text-[#a0aec0] max-w-3xl mx-auto leading-relaxed">
+          Welcome to CNFans Finds! Your #1 source for the latest CNFans
+          spreadsheet, curated product links, and trending CNFans deals. Explore
+          our exclusive CNFans categories, shop smarter, and access the most
+          up-to-date CNFans finds and spreadsheets online.
         </p>
         <a
           href="/shop"
           className="inline-block bg-gradient-to-br from-[#ff2a68] to-[#ff5a8a] text-white py-4 px-8 rounded-lg font-bold text-lg transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#ff2a68] focus:ring-offset-2"
         >
-          Explore CNFans Categories
+          Explore CNFans Spreadsheet & Product Categories
         </a>
       </section>
 
       {/* Categories Section */}
       <section className="py-16 px-5 max-w-6xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">
-          Shop by Category
+          Browse CNFans Categories, Links & Spreadsheets
         </h2>
         {/* 3-column grid for categories */}
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">

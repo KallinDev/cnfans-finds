@@ -110,11 +110,13 @@ const Shop = () => {
       {/* Hero Section */}
       <section className="py-20 text-center max-w-6xl mx-auto">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent">
-          Shop All Products
+          CNFans Spreadsheet, Product Links & Finds – Shop All CNFans Products
         </h1>
-        <p className="text-lg md:text-xl text-[#a0aec0] mb-10 max-w-xl mx-auto leading-relaxed">
-          Browse our curated selection of trending products and exclusive deals.
-          All links are handpicked for you to shop smarter and save more.
+        <p className="text-lg md:text-m text-[#a0aec0] mb-10 max-w-xl mx-auto leading-relaxed">
+          Discover the most comprehensive CNFans spreadsheet, curated CNFans
+          product links, and trending CNFans finds. Shop exclusive CNFans deals,
+          explore categories, and access the latest CNFans spreadsheets and
+          links for premium products.
         </p>
         {/* Category Buttons */}
         <div className="flex flex-wrap justify-center gap-2 mb-4">
