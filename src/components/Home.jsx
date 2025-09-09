@@ -59,7 +59,7 @@ const Home = () => {
       />
 
       {/* Hero Section */}
-      <section className="py-20 text-center max-w-6xl mx-auto">
+      <section className="py-20 text-center max-w-6xl mx-auto px-4">
         <h1 className="text-4xl sm:text-5xl font-extrabold mb-5 bg-gradient-to-br from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent">
           CNFans Spreadsheet, Finds & Links – Discover Trending CNFans Products
         </h1>
@@ -78,12 +78,12 @@ const Home = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 px-5 max-w-6xl mx-auto">
+      <section className="py-16 px-4 max-w-6xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-white">
           Browse CNFans Categories, Links & Spreadsheets
         </h2>
         {/* 3-column grid for categories */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 px-2 md:px-0">
           {categories.map((category) => (
             <button
               key={category.name}

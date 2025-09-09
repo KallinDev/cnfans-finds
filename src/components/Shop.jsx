@@ -100,7 +100,7 @@ const Shop = () => {
   }, [visibleCount, products.length, loading]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-[#0a1a2f] to-black text-[#e2e8f0]">
       {/* Header */}
       <Header
         showCategoriesDropdown={showCategoriesDropdown}
@@ -108,7 +108,7 @@ const Shop = () => {
         categories={categories}
       />
       {/* Hero Section */}
-      <section className="py-20 text-center max-w-6xl mx-auto">
+      <section className="py-20 text-center max-w-6xl mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent">
           CNFans Spreadsheet, Product Links & Finds – Shop All CNFans Products
         </h1>
@@ -119,7 +119,10 @@ const Shop = () => {
           links for premium products.
         </p>
         {/* Category Buttons */}
-        <div className="flex flex-wrap justify-center gap-2 mb-4">
+        <div
+          className="flex flex-wrap justify-center items-center gap-2 mb-4 px-2 md:px-4"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
           {categories.map((category) => {
             const normalize = (str) =>
               str.toLowerCase().replace(/\//g, "-").replace(/ /g, "-");
@@ -151,7 +154,7 @@ const Shop = () => {
           })}
         </div>
         {/* Search and Sorting */}
-        <div className="max-w-2xl mx-auto px-5 pt-2 pb-6 flex flex-col md:flex-row gap-4 justify-center items-center">
+        <div className="max-w-2xl mx-auto px-2 pt-2 pb-6 flex flex-col md:flex-row gap-3 justify-center items-center">
           <input
             type="text"
             value={searchTerm}
@@ -173,8 +176,8 @@ const Shop = () => {
         </div>
       </section>
       {/* Product Grid from products.json */}
-      <section className="max-w-6xl mx-auto px-5 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <section className="max-w-6xl mx-auto px-4 pb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 justify-center items-center place-items-center mx-auto">
           {loading ? (
             <div className="col-span-full text-center text-[#a0aec0]">
               Loading...
