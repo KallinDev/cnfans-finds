@@ -23,13 +23,20 @@ export default function ProductCard({ name, link, price_usd, image, style }) {
         ...style,
       }}
     >
-      <div className="rounded-3xl shadow-xl p-7 bg-gradient-to-br from-[#232946] to-[#121629] border border-white/10 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col w-full max-w-[370px] min-h-[440px] min-w-[270px] h-[440px] justify-between">
+      <div className="rounded-3xl shadow-xl p-7 bg-gradient-to-br from-[#232946] to-[#121629] border border-white/10 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl flex flex-col w-full max-w-[370px] min-h-[440px] min-w-[270px] h-[440px] justify-between w-[90vw] sm:w-full">
         {image && (
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-40 object-cover rounded-2xl mb-4"
-          />
+          <div className="w-full aspect-[4/3] mb-4 flex items-center justify-center bg-[#181a20] rounded-2xl overflow-hidden">
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover"
+              style={{
+                minWidth: "100%",
+                minHeight: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </div>
         )}
         <h3
           className="text-lg font-semibold text-white mb-2 max-w-full text-left"
