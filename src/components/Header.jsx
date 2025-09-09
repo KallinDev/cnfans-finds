@@ -8,6 +8,7 @@ export default function Header({ categories, categoryCounts }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const inputRef = useRef(null);
   const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
+
   // Use categories prop if provided, else fallback to default
   const categoriesList = categories
     ? categories
@@ -126,30 +127,13 @@ export default function Header({ categories, categoryCounts }) {
                   Home
                 </a>
               </li>
-              <li
-                className="relative"
-                onMouseEnter={() => {
-                  if (window.innerWidth >= 768) {
-                    setCategoriesDropdownOpen(true);
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (window.innerWidth >= 768) {
-                    setCategoriesDropdownOpen(false);
-                  }
-                }}
-              >
+              <li className="relative group" style={{ zIndex: 100 }}>
                 <button
                   type="button"
                   className="text-[#cbd5e0] px-4 py-2 rounded-lg transition flex items-center gap-2 hover:text-[#ff2a68] hover:bg-[#ff2a68]/10 cursor-pointer"
                   onClick={() => {
                     if (window.innerWidth < 768) {
-                      if (!categoriesDropdownOpen) {
-                        setCategoriesDropdownOpen(true);
-                      } else {
-                        // Fade out on mobile
-                        setTimeout(() => setCategoriesDropdownOpen(false), 200);
-                      }
+                      setCategoriesDropdownOpen(!categoriesDropdownOpen);
                     }
                   }}
                   aria-haspopup="true"
@@ -157,14 +141,8 @@ export default function Header({ categories, categoryCounts }) {
                 >
                   Categories <span className="text-xs">▼</span>
                 </button>
-                <ul
-                  className={`absolute left-0 top-full mt-2 w-64 bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50 transition-opacity duration-200 ${
-                    categoriesDropdownOpen
-                      ? "opacity-100 pointer-events-auto"
-                      : "opacity-0 pointer-events-none"
-                  }`}
-                  style={{ display: "block" }}
-                >
+                {/* Desktop dropdown - CSS hover controlled */}
+                <ul className="hidden md:block absolute left-0 top-full w-64 bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200">
                   {categoriesList.map((cat) => (
                     <li key={cat.name}>
                       <a
@@ -173,15 +151,33 @@ export default function Header({ categories, categoryCounts }) {
                           .replace(/\//g, "-")
                           .replace(/ /g, "-")}`}
                         className="flex items-center gap-3 px-4 py-3 text-[#cbd5e0] hover:bg-[#ff2a68]/10 hover:text-[#ff2a68] rounded-lg transition cursor-pointer"
-                        onClick={() => setCategoriesDropdownOpen(false)}
                       >
                         <span className="text-2xl">{cat.icon}</span>
                         <span className="font-medium">{cat.name}</span>
-                        {/* Only icon and name, no product count */}
                       </a>
                     </li>
                   ))}
                 </ul>
+                {/* Mobile dropdown - JavaScript controlled */}
+                {categoriesDropdownOpen && (
+                  <ul className="md:hidden absolute left-0 top-full w-64 bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50">
+                    {categoriesList.map((cat) => (
+                      <li key={cat.name}>
+                        <a
+                          href={`/shop/categories/${cat.name
+                            .toLowerCase()
+                            .replace(/\//g, "-")
+                            .replace(/ /g, "-")}`}
+                          className="flex items-center gap-3 px-4 py-3 text-[#cbd5e0] hover:bg-[#ff2a68]/10 hover:text-[#ff2a68] rounded-lg transition cursor-pointer"
+                          onClick={() => setCategoriesDropdownOpen(false)}
+                        >
+                          <span className="text-2xl">{cat.icon}</span>
+                          <span className="font-medium">{cat.name}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
               <li className="relative" ref={inputRef}>
                 <form
@@ -314,7 +310,7 @@ export default function Header({ categories, categoryCounts }) {
                   Categories <span className="text-xs">▼</span>
                 </button>
                 <ul
-                  className={`absolute left-0 top-full mt-2 w-full bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50 transition-opacity duration-200 ${
+                  className={`absolute left-0 top-full mt-2 w-full bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50 transition-opacity duration-200 overflow-hidden ${
                     categoriesDropdownOpen
                       ? "opacity-100 pointer-events-auto"
                       : "opacity-0 pointer-events-none"
@@ -336,7 +332,6 @@ export default function Header({ categories, categoryCounts }) {
                       >
                         <span className="text-2xl">{cat.icon}</span>
                         <span className="font-medium">{cat.name}</span>
-                        {/* Only icon and name, no product count */}
                       </a>
                     </li>
                   ))}
