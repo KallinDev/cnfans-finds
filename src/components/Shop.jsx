@@ -121,13 +121,11 @@ const Shop = () => {
         {/* Category Buttons */}
         <div className="flex flex-wrap justify-center gap-2 mb-4">
           {categories.map((category) => {
-            const normalized = category.name
-              .toLowerCase()
-              .replace(/\//g, "-")
-              .replace(/ /g, "-");
+            const normalize = (str) =>
+              str.toLowerCase().replace(/\//g, "-").replace(/ /g, "-");
+            const normalized = normalize(category.name);
             const isSelected =
-              selectedCategory &&
-              normalized === selectedCategory.toLowerCase().replace(/ /g, "-");
+              selectedCategory && normalized === normalize(selectedCategory);
             return (
               <button
                 key={category.name}
