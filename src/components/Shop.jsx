@@ -198,6 +198,7 @@ const Shop = () => {
                 const normalize = (str) =>
                   (str || "Other")
                     .toLowerCase()
+                    // eslint-disable-next-line no-useless-escape
                     .replace(/[\/]/g, "-")
                     .replace(/\s+/g, "-")
                     .trim();
