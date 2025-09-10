@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getCategoryCounts } from "../utils/categoryCounts";
-import Header from "./Header";
-import Footer from "./Footer";
 import "../index.css";
 // import { Link } from 'react-router-dom'; // Add this when using in your project
 
 const Home = () => {
-  const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
   const [categoryCounts, setCategoryCounts] = useState({});
 
   useEffect(() => {
@@ -51,12 +48,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* Header */}
-      <Header
-        showCategoriesDropdown={showCategoriesDropdown}
-        setShowCategoriesDropdown={setShowCategoriesDropdown}
-        categories={categories}
-      />
+      {/* Removed Header */}
 
       {/* Hero Section */}
       <section className="py-20 text-center max-w-6xl mx-auto px-4">
@@ -113,9 +105,6 @@ const Home = () => {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 
 export default function ProductDetails({ product }) {
   const [suggested, setSuggested] = useState([]);
@@ -49,19 +47,6 @@ export default function ProductDetails({ product }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#0a1a2f] to-black text-[#e2e8f0]">
-      <Header
-        categories={[
-          { name: "All", icon: "🌐" },
-          { name: "Shoes", icon: "👞" },
-          { name: "Jackets", icon: "🥼" },
-          { name: "Hoodies/Sweaters", icon: "🧥" },
-          { name: "T-shirts", icon: "👕" },
-          { name: "Pants", icon: "👖" },
-          { name: "Hats", icon: "🎩" },
-          { name: "Accessories", icon: "👜" },
-          { name: "Other", icon: "✨" },
-        ]}
-      />
       <div className="flex-1 flex items-center justify-center">
         <div className="max-w-4xl w-full mx-auto py-24 px-6 gap-y-12 flex flex-col md:flex-row gap-12 items-center">
           <div className="w-full md:w-1/2 flex items-center justify-center">
@@ -179,7 +164,6 @@ export default function ProductDetails({ product }) {
           })}
         </div>
       </section>
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
 import ProductCard from "./ProductCard";
 
 const categories = [
@@ -51,7 +49,6 @@ const Shop = () => {
   }, []);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
   const INITIAL_COUNT = 20;
   const LOAD_MORE_COUNT = 40;
   const [visibleCount, setVisibleCount] = useState(INITIAL_COUNT);
@@ -93,12 +90,6 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a1a2f] to-black text-[#e2e8f0]">
-      {/* Header */}
-      <Header
-        showCategoriesDropdown={showCategoriesDropdown}
-        setShowCategoriesDropdown={setShowCategoriesDropdown}
-        categories={categories}
-      />
       {/* Hero Section */}
       <section className="py-20 text-center max-w-6xl mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent">
@@ -256,7 +247,6 @@ const Shop = () => {
           )}
         </div>
       </section>
-      <Footer />
     </div>
   );
 };
