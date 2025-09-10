@@ -113,7 +113,7 @@ export default function Header({ categories }) {
               className="text-2xl font-bold bg-gradient-to-r from-[#ff2a68] to-[#ff5a8a] bg-clip-text text-transparent"
               title="CNFans Spreadsheet, Finds & Links Home"
             >
-              CNFans Spreadsheet & Finds
+              CNFans Finds
             </a>
           </div>
           {/* Desktop nav */}
