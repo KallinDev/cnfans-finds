@@ -1,4 +1,3 @@
-export default App;
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,6 +10,22 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import React, { useEffect, useState } from "react";
 import ProductDetails from "./components/ProductDetails";
+import { useLocation } from "react-router-dom";
+
+// Wrapper to use useLocation inside Router
+function AnalyticsTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag("config", "G-MQDB9RN454", {
+        page_path: location.pathname + location.search,
+      });
+    }
+  }, [location]);
+
+  return null;
+}
 
 function ProductDetailsWrapper() {
   const { id } = useParams();
@@ -91,6 +106,7 @@ function App() {
               { name: "Other", icon: "✨" },
             ]}
           />
+          <AnalyticsTracker />
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -105,3 +121,4 @@ function App() {
     </div>
   );
 }
+export default App;
