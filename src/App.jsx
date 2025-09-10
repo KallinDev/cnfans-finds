@@ -1,10 +1,55 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useParams,
+} from "react-router-dom";
+import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
-import { useProducts } from "./hooks/useProduct";
-import { useEffect } from "react";
+import ProductDetails from "./components/ProductDetails";
+
+function ProductDetailsWrapper() {
+  const { id } = useParams();
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/products_with_images.json")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center py-20 text-[#a0aec0]">
+        Loading product details...
+      </div>
+    );
+  }
+
+  // Find product by matching decoded id with product link
+  const decodedId = decodeURIComponent(id);
+  const product = products.find(
+    (p) => (p["__2"] || p.link || "") === decodedId
+  );
+
+  if (!product) {
+    return (
+      <div className="text-center py-20 text-[#a0aec0]">Product not found.</div>
+    );
+  }
+
+  return <ProductDetails product={product} />;
+}
 
 function App() {
+  // No products state here; Shop and Home fetch their own data
+
   // Wiggle Register button every 10 seconds (no glow)
   useEffect(() => {
     const btn = document.querySelector(".register-wiggle-glow");
@@ -40,26 +85,6 @@ function App() {
     timer = setTimeout(wiggle, delay);
     return () => clearTimeout(timer);
   }, []);
-
-  // Wiggle Discord button every 10 seconds (no glow)
-  useEffect(() => {
-    const btn = document.querySelector(".discord-wiggle-glow");
-    if (!btn) return;
-    let delay = 10000; // 10 seconds between wiggles
-    let duration = 2000; // wiggle duration
-    let timer;
-    function wiggle() {
-      btn.style.animation = `wiggleOnly ${duration}ms cubic-bezier(.4,0,.2,1)`;
-      setTimeout(() => {
-        btn.style.animation = "";
-        timer = setTimeout(wiggle, delay);
-      }, duration);
-    }
-    timer = setTimeout(wiggle, delay);
-    return () => clearTimeout(timer);
-  }, []);
-  // Make sure your CSV is in the public folder, e.g., public/products.csv
-  const products = useProducts("/products.csv");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a1a2f] to-black text-[#e2e8f0]">
@@ -111,13 +136,10 @@ function App() {
       </a>
       <Router>
         <Routes>
-          <Route path="/" element={<Home products={products} />} />
-          <Route path="/shop" element={<Shop products={products} />} />
-          <Route
-            path="/shop/categories/:category"
-            element={<Shop products={products} />}
-          />
-          {/* Add more routes here as you build more pages */}
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/categories/:category" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetailsWrapper />} />
         </Routes>
       </Router>
     </div>

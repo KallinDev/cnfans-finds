@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function Header({ categories }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -8,6 +8,7 @@ export default function Header({ categories }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const inputRef = useRef(null);
   const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Use categories prop if provided, else fallback to default
   const categoriesList = categories
@@ -237,30 +238,37 @@ export default function Header({ categories }) {
                     {/* Suggestions Dropdown */}
                     {dropdownOpen && suggestions.length > 0 && (
                       <div className="absolute left-0 top-full mt-2 w-full bg-[#232946] border border-white/10 rounded-xl shadow-xl z-50">
-                        {suggestions.map((item) => (
-                          <a
-                            key={item.link}
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-3 px-4 py-3 text-[#cbd5e0] hover:bg-[#ff2a68]/10 hover:text-[#ff2a68] rounded-lg transition cursor-pointer"
-                            onMouseDown={() => setDropdownOpen(false)}
-                          >
-                            {item.image && (
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-10 h-10 object-cover rounded-lg"
-                              />
-                            )}
-                            <span className="font-medium truncate max-w-[180px]">
-                              {item.name}
-                            </span>
-                            <span className="ml-auto text-sm text-[#ff2a68] font-bold">
-                              {item.price_usd}
-                            </span>
-                          </a>
-                        ))}
+                        {suggestions.map((item) => {
+                          const productId = encodeURIComponent(
+                            (item.link || item.name || "")
+                              .replace(/\s+/g, "-")
+                              .toLowerCase()
+                          );
+                          return (
+                            <div
+                              key={item.link}
+                              className="flex items-center gap-3 px-4 py-3 text-[#cbd5e0] hover:bg-[#ff2a68]/10 hover:text-[#ff2a68] rounded-lg transition cursor-pointer"
+                              onMouseDown={() => {
+                                setDropdownOpen(false);
+                                navigate(`/product/${productId}`);
+                              }}
+                            >
+                              {item.image && (
+                                <img
+                                  src={item.image}
+                                  alt={item.name}
+                                  className="w-10 h-10 object-cover rounded-lg"
+                                />
+                              )}
+                              <span className="font-medium truncate max-w-[180px]">
+                                {item.name}
+                              </span>
+                              <span className="ml-auto text-sm text-[#ff2a68] font-bold">
+                                {item.price_usd}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

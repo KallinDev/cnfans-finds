@@ -13,11 +13,16 @@ export function useProducts(csvUrl, visibleCount = 20) {
       setLoading(true);
       try {
         const res = await fetch(csvUrl);
-        const text = await res.text();
-        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-        setAllRows(parsed.data);
+        if (csvUrl.endsWith('.json')) {
+          const json = await res.json();
+          setAllRows(json);
+        } else {
+          const text = await res.text();
+          const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+          setAllRows(parsed.data);
+        }
       } catch (err) {
-        console.error("Failed to fetch products CSV", err);
+        console.error("Failed to fetch products file", err);
       }
       setLoading(false);
     }

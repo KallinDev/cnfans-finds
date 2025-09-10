@@ -60,15 +60,7 @@ const Shop = () => {
     fetch("/products_with_images.json")
       .then((res) => res.json())
       .then((data) => {
-        // Map JSON keys to ProductCard props
-        const mapped = data.map((item) => ({
-          name: item[""] || "",
-          price_usd: item["__1"] || "",
-          link: item["__2"] || "",
-          image: item.image || "",
-          category: item.category || "",
-        }));
-        setProducts(mapped);
+        setProducts(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -216,49 +208,51 @@ const Shop = () => {
                 if (!searchTerm) return true;
                 const term = searchTerm.toLowerCase();
                 return (
-                  product.name.toLowerCase().includes(term) ||
+                  (product[""] && product[""]?.toLowerCase().includes(term)) ||
                   (product.category &&
                     product.category.toLowerCase().includes(term)) ||
-                  (product.price_usd &&
-                    product.price_usd.toLowerCase().includes(term))
+                  (product["__1"] &&
+                    product["__1"].toLowerCase().includes(term))
                 );
               })
               .sort((a, b) => {
                 if (sortOption === "price-asc") {
                   return (
-                    (parseFloat(a.price_usd.replace(/[^\d.]/g, "")) || 0) -
-                    (parseFloat(b.price_usd.replace(/[^\d.]/g, "")) || 0)
+                    (parseFloat((a["__1"] || "").replace(/[^\d.]/g, "")) || 0) -
+                    (parseFloat((b["__1"] || "").replace(/[^\d.]/g, "")) || 0)
                   );
                 }
                 if (sortOption === "price-desc") {
                   return (
-                    (parseFloat(b.price_usd.replace(/[^\d.]/g, "")) || 0) -
-                    (parseFloat(a.price_usd.replace(/[^\d.]/g, "")) || 0)
+                    (parseFloat((b["__1"] || "").replace(/[^\d.]/g, "")) || 0) -
+                    (parseFloat((a["__1"] || "").replace(/[^\d.]/g, "")) || 0)
                   );
                 }
                 if (sortOption === "name-asc") {
-                  return a.name.localeCompare(b.name);
+                  return (a[""] || "").localeCompare(b[""] || "");
                 }
                 if (sortOption === "name-desc") {
-                  return b.name.localeCompare(a.name);
+                  return (b[""] || "").localeCompare(a[""] || "");
                 }
                 return 0;
               })
               .slice(0, visibleCount)
-              .map((product, idx) => (
-                <ProductCard
-                  key={`${selectedCategory}-${searchTerm}-${
-                    product.link || product.name || idx
-                  }`}
-                  name={product.name}
-                  price_usd={product.price_usd}
-                  link={product.link}
-                  image={product.image}
-                  style={{
-                    animationDelay: `${idx < INITIAL_COUNT ? idx * 20 : 0}ms`,
-                  }}
-                />
-              ))
+              .map((product, idx) => {
+                // Use encoded product link as unique id for routing
+                const productId = encodeURIComponent(
+                  product["__2"] || product.link || "" + idx
+                );
+                return (
+                  <ProductCard
+                    key={productId}
+                    product={product}
+                    id={productId}
+                    style={{
+                      animationDelay: `${idx < INITIAL_COUNT ? idx * 20 : 0}ms`,
+                    }}
+                  />
+                );
+              })
           )}
         </div>
       </section>
